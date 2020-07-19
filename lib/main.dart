@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import './transaction.dart';
 
 void main() {
   runApp(MyApp());
@@ -17,26 +16,10 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
-  final List<Transaction> transactions = [
-    Transaction(
-      id: 't01',
-      title: 'New shoes',
-      amount: 59.95,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't02',
-      title: 'Fritness',
-      amount: 16.40,
-      date: DateTime.now().add(Duration(days: -2)),
-    ),
-    Transaction(
-      id: 't03',
-      title: 'Fuel',
-      amount: 45.00,
-      date: DateTime.now().add(Duration(days: -4)),
-    ),
-  ];
+  // String titleInput;
+  // String amountInput;
+  final titleController = TextEditingController();
+  final amountController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +28,7 @@ class MyHomePage extends StatelessWidget {
         title: Text('Expenses manager'),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Container(
@@ -57,10 +40,6 @@ class MyHomePage extends StatelessWidget {
               margin: EdgeInsets.all(25),
             ),
           ),
-          Card(
-            color: Colors.red,
-            child: Text('List here'),
-          )
         ],
       ),
     );
