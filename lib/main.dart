@@ -1,9 +1,8 @@
-import 'package:expenses_manager/widgets/newTransaction.dart';
-import 'package:expenses_manager/widgets/transactionList.dart';
 import 'package:flutter/material.dart';
-
-import 'widgets/transactionList.dart';
-import 'models/transaction.dart';
+import './services/transactionService.dart';
+import './models/transaction.dart';
+import './widgets/newTransaction.dart';
+import './widgets/transactionList.dart';
 
 void main() {
   runApp(MyApp());
@@ -29,44 +28,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<Transaction> _transactions = [
-    Transaction(
-      id: 't01',
-      title: 'New shoes',
-      amount: 59.95,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't02',
-      title: 'Fritness',
-      amount: 16.45,
-      date: DateTime.now().add(Duration(days: -2)),
-    ),
-    Transaction(
-      id: 't03',
-      title: 'Fuel',
-      amount: 45.09,
-      date: DateTime.now().add(Duration(days: -4)),
-    ),
-    Transaction(
-      id: 't04',
-      title: 'Mangas',
-      amount: 120.00,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't05',
-      title: 'New Phone',
-      amount: 499.99,
-      date: DateTime.now().add(Duration(days: -2)),
-    ),
-    Transaction(
-      id: 't06',
-      title: 'Sockets',
-      amount: 00.99,
-      date: DateTime.now().add(Duration(days: -4)),
-    ),
-  ];
+  final List<Transaction> _transactions = TransactionService.getTransactions();
 
   void _addNewTransaction(String title, double amount) {
     final newTransaction = Transaction(
