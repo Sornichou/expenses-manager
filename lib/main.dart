@@ -4,6 +4,7 @@ import './models/transaction.dart';
 import './widgets/chart.dart';
 import './widgets/newTransaction.dart';
 import './widgets/transactionList.dart';
+import 'services/transactionService.dart';
 
 void main() {
   runApp(MyApp());
@@ -46,8 +47,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<Transaction> _transactions =
-      []; // TransactionService.getTransactions();
+  final List<Transaction> _transactions = TransactionService.getTransactions();
 
   List<Transaction> get _recentTransactions {
     return _transactions.where((t) {

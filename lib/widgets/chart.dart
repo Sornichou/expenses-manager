@@ -13,19 +13,20 @@ class Chart extends StatelessWidget {
       final weekDay = DateTime.now().subtract(Duration(days: index));
       double totalAmount = 0.0;
 
-      for (var transaction in recentTransactions) {
-        if (transaction.date.day == weekDay.day &&
-            transaction.date.month == weekDay.month &&
-            transaction.date.year == weekDay.year) {
-          totalAmount += transaction.amount;
-        }
-      }
+      recentTransactions
+          .where((transaction) =>
+              transaction.date.day == weekDay.day &&
+              transaction.date.month == weekDay.month &&
+              transaction.date.year == weekDay.year)
+          .forEach((transaction) {
+        totalAmount += transaction.amount;
+      });
 
       return {
         'day': DateFormat.E().format(weekDay).substring(0, 1),
         'amount': totalAmount,
       };
-    });
+    }).reversed.toList();
   }
 
   double get totalSpending {
@@ -38,17 +39,24 @@ class Chart extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 6,
-      margin: EdgeInsets.all(20),
-      child: Row(
-        children: groupedTransactionValues.map((data) {
-          return ChartBar(
-            data['day'],
-            data['amount'],
-            totalSpending == 0.0
-                ? 0.0
-                : (data['amount'] as double) / totalSpending,
-          );
-        }).toList(),
+      margin: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+      child: Padding(
+        padding: EdgeInsets.all(10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: groupedTransactionValues.map((data) {
+            return Flexible(
+              fit: FlexFit.tight,
+              child: ChartBar(
+                data['day'],
+                data['amount'],
+                totalSpending == 0.0
+                    ? totalSpending
+                    : (data['amount'] as double) / totalSpending,
+              ),
+            );
+          }).toList(),
+        ),
       ),
     );
   }
